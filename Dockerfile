@@ -7,3 +7,5 @@ RUN touch /root/.bashrc | echo "PS1='\w\$ '" >> /root/.bashrc
 RUN npm i -g @nestjs/cli@7.6.0
 
 WORKDIR /home/node/app
+
+EXPOSE 5005
