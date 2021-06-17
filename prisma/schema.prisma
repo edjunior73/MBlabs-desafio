@@ -1,0 +1,87 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["orderByRelation"]
+}
+
+model User {
+  id         String       @id @default(uuid())
+  name       String
+  password   String
+  photoUrl   String?      @map("photo_url")
+  birthday   DateTime
+  cpf        String       @unique
+  createdAt  DateTime     @default(now()) @map("created_at")
+  updatedAt  DateTime     @default(now()) @updatedAt @map("updated_at")
+  categories Category[]   @relation("User_Category")
+  events     UserEvents[]
+}
+
+model Category {
+  id          String   @id @default(uuid())
+  name        String
+  description String
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @default(now()) @updatedAt @map("updated_at")
+  users       User[]   @relation("User_Category")
+  events      Event[]
+}
+
+model EventMaker {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  cnpj        String
+  photoUrl    String?  @map("photo_url")
+  password    String
+  email       String   @unique
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @default(now()) @updatedAt @map("updated_at")
+  events      Event[]
+
+  @@map("Event_Maker")
+}
+
+model Event {
+  id          String     @id @default(uuid())
+  name        String
+  description DateTime
+  categories  Category   @relation(fields: [categoryId], references: [id])
+  categoryId  String     @map("category_id")
+  place       String
+  isPaid      Boolean    @map("is_paid")
+  eventMaker  EventMaker @relation(fields: [onwerId], references: [id])
+  onwerId     String     @map("owner_id")
+  createdAt   DateTime   @default(now()) @map("created_at")
+  updatedAt   DateTime   @default(now()) @updatedAt @map("updated_at")
+  tickets     Ticket[]
+}
+
+model Ticket {
+  id         String       @id @default(uuid())
+  price      Float
+  count      Int?
+  event      Event        @relation(fields: [eventId], references: [id])
+  eventId    String       @map("event_id")
+  name       String
+  descrition String?
+  createdAt  DateTime     @default(now()) @map("created_at")
+  updatedAt  DateTime     @default(now()) @updatedAt @map("updated_at")
+  events     UserEvents[]
+}
+
+model UserEvents {
+  user      User     @relation(fields: [userId], references: [id])
+  ticket    Ticket   @relation(fields: [ticketId], references: [id])
+  userId    String   @map("user_id")
+  ticketId  String   @map("ticket_id")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+
+  @@id([userId, ticketId])
+  @@map("User_Events")
+}
