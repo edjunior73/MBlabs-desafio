@@ -1,5 +1,4 @@
 import { Field, InputType } from '@nestjs/graphql'
-import { BlobOptions } from 'buffer'
 import {
   IsBoolean,
   IsDate,
@@ -11,10 +10,15 @@ import {
 } from 'class-validator'
 
 @InputType()
-export class SignUpUserDto {
+export class SignUpEventMakerDto {
   @Field()
   @IsString()
   name: string
+
+  @Field({ nullable: true })
+  @IsString()
+  @IsOptional()
+  description: string
 
   @Field()
   @IsString()
@@ -30,16 +34,12 @@ export class SignUpUserDto {
   isVerified: boolean
 
   @Field()
-  @IsDate()
-  birthday: Date
-
-  @Field()
   @IsEmail()
   email: string
 
   @Field()
   @IsString()
-  @MaxLength(11)
-  @MinLength(11)
-  cpf: string
+  @MaxLength(14)
+  @MinLength(14)
+  cnpj: string
 }
