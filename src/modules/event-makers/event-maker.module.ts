@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common'
-import { GraphQLModule } from './graphql'
+import { CqrsModule } from '@nestjs/cqrs'
 import { EventMakerRepository } from './repositories/event-maker.repository'
 
 @Module({
-  imports: [GraphQLModule],
+  imports: [CqrsModule],
   providers: [EventMakerRepository]
 })
 export class EventMakerModule {}

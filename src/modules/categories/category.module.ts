@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common'
-import { GraphQLModule } from './graphql'
+import { CqrsModule } from '@nestjs/cqrs'
 import { CategoryRepository } from './repositories/category.repository'
 
 @Module({
-  imports: [GraphQLModule],
+  imports: [CqrsModule],
   providers: [CategoryRepository]
 })
 export class CategoryModule {}
