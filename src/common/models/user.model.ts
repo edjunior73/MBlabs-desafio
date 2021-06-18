@@ -9,14 +9,17 @@ export class User {
   @Field()
   name: string
 
-  @Field()
-  password: string
-
   @Field({ nullable: true })
   photoUrl?: string
 
   @Field()
   birthday: Date
+
+  @Field()
+  email: string
+
+  @Field()
+  isVerified: boolean
 
   @Field()
   cpf: string
