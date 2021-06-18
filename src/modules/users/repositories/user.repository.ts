@@ -20,4 +20,8 @@ export class UserRepository {
     const user = await this.prismaService.user.findUnique({ where: { cpf } })
     return user
   }
+  async getUser(email: string): Promise<User> {
+    const user = await this.prismaService.user.findUnique({ where: { email } })
+    return user as User
+  }
 }
