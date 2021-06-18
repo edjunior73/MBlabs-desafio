@@ -1,5 +1,5 @@
-import { Provider } from '@nestjs/common'
 import { isFunction } from '@common/utils'
+import { Provider } from '@nestjs/common'
 
 export * from './sign-up'
 
