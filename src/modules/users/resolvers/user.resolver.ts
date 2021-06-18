@@ -1,4 +1,4 @@
-import { SignUpUserDto } from '@common/dtos'
+import { GetUserDto, SignUpUserDto } from '@common/dtos'
 import { UserLogin } from '@common/models/user-login.model'
 import { UserService } from '@modules/users/services'
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql'
@@ -7,11 +7,11 @@ import { Resolver, Query, Mutation, Args } from '@nestjs/graphql'
 export class UserResolver {
   constructor(private readonly userService: UserService) {}
   @Query(() => String)
-  helloWorld() {
-    return 'Hello, Worldaaaa!'
+  getUser(@Args('userInput') input: GetUserDto) {
+    return this.userService.getUser(input)
   }
   @Mutation(() => UserLogin)
   signUpUser(@Args('userInput') input: SignUpUserDto) {
-    this.userService.signUpUser(input)
+    return this.userService.signUpUser(input)
   }
 }
