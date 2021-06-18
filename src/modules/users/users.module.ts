@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common'
 import { CqrsModule } from '@nestjs/cqrs'
-import { CommandHandlers, EventHandlers } from './cqrs'
+import { CommandHandlers, EventHandlers, QueryHandlers } from './cqrs'
 import { UserRepository } from './repositories/user.repository'
 import { UserResolver } from './resolvers'
 import { ServicesModule, UserService } from './services'
@@ -12,7 +12,8 @@ import { ServicesModule, UserService } from './services'
     UserService,
     UserResolver,
     ...CommandHandlers,
-    ...EventHandlers
+    ...EventHandlers,
+    ...QueryHandlers
   ]
 })
 export class UserModule {}
