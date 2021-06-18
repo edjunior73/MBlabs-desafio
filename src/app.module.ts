@@ -7,7 +7,6 @@ import { UserModule } from '@modules/users'
 import { EventModule } from '@modules/events'
 import { EventMakerModule } from '@modules/event-makers'
 import { CategoryModule } from '@modules/categories'
-import { UserService } from '@modules/users/services'
 
 @Module({
   imports: [
