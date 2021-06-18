@@ -23,10 +23,4 @@ export class User {
 
   @Field()
   cpf: string
-
-  @Field()
-  createdAt: Date
-
-  @Field()
-  updatedAt: Date
 }

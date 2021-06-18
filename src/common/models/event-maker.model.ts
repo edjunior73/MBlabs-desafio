@@ -19,14 +19,5 @@ export class EventMaker {
   photoUrl?: string
 
   @Field()
-  password: string
-
-  @Field()
   email: string
-
-  @Field()
-  createdAt: Date
-
-  @Field()
-  updatedAt: Date
 }
