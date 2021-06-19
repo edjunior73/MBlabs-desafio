@@ -1,7 +1,5 @@
 import { Field, InputType } from '@nestjs/graphql'
-import { BlobOptions } from 'buffer'
 import {
-  IsBoolean,
   IsDate,
   IsEmail,
   IsOptional,
@@ -12,6 +10,10 @@ import {
 
 @InputType()
 export class SignUpUserDto {
+  @Field()
+  @IsEmail()
+  email: string
+
   @Field()
   @IsString()
   name: string
@@ -25,17 +27,9 @@ export class SignUpUserDto {
   @IsOptional()
   photoUrl?: string
 
-  @Field({ defaultValue: false })
-  @IsBoolean()
-  isVerified: boolean
-
   @Field()
   @IsDate()
   birthday: Date
-
-  @Field()
-  @IsEmail()
-  email: string
 
   @Field()
   @IsString()
