@@ -1,10 +1,11 @@
 import { APP_URL } from '@common/constants/server'
-import { EventMakerLogin } from '@common/models/event-maker-login.model'
+import { EventMakerLogin } from '@common/models'
 import { CryptService } from '@common/services'
-import { EventMakerRepository } from '@modules/event-makers/repositories/event-maker.repository'
+import { EventMakerRepository } from '@modules/event-makers/repositories'
 import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs'
 import { JwtService } from '@nestjs/jwt'
-import { CreatedEventMakerEvent } from '../../events/created-event-maker/created-event-maker.event'
+import { Role } from '@common/types'
+import { CreatedEventMakerEvent } from '../../events/created-event-maker'
 import { SignUpEventMakerCommand } from './sign-up-event-maker.command'
 
 @CommandHandler(SignUpEventMakerCommand)
@@ -31,10 +32,19 @@ export class SignUpEventMakerHandler
 
     const createdUser = await this.eventMakerRepository.create({
       ...input,
+      isVerified: false,
       password: hashPassword
     })
 
-    const token = this.jwtService.sign({ id: createdUser.id, email: createdUser.email })
+    const token = this.jwtService.sign(
+      {
+        email: createdUser.email,
+        role: Role.EVENT_MAKER
+      },
+      {
+        subject: createdUser.id
+      }
+    )
 
     const link = `${APP_URL}/verify-email?token=${token}`
 
