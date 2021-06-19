@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common'
 import { CqrsModule } from '@nestjs/cqrs'
 import { CommandHandlers, QueryHandlers } from './cqrs'
 import { CategoryRepository } from './repositories'
-import { CategoryResolver } from './resolver'
+import { CategoryResolver } from './resolvers'
 import { CategoryService } from './services'
 
 @Module({
