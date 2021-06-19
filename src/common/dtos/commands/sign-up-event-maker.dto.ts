@@ -29,10 +29,6 @@ export class SignUpEventMakerDto {
   @IsOptional()
   photoUrl?: string
 
-  @Field({ defaultValue: false })
-  @IsBoolean()
-  isVerified: boolean
-
   @Field()
   @IsEmail()
   email: string
