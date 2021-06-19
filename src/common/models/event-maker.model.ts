@@ -20,4 +20,6 @@ export class EventMaker {
 
   @Field()
   email: string
+
+  password: string
 }

@@ -23,4 +23,6 @@ export class User {
 
   @Field()
   cpf: string
+
+  password: string
 }

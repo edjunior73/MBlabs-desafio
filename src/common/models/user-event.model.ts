@@ -2,7 +2,7 @@ import { FieldId } from '@common/decorators'
 import { Field, ObjectType } from '@nestjs/graphql'
 
 @ObjectType()
-export class Category {
+export class UserEvent {
   @FieldId()
   userId: string
 

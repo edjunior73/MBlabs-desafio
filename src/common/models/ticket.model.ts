@@ -10,7 +10,7 @@ export class Ticket {
   price: number
 
   @Field(() => Int, { nullable: true })
-  count?: number
+  count?: number | null
 
   @Field()
   eventId: string
@@ -20,10 +20,4 @@ export class Ticket {
 
   @Field({ nullable: true })
   description?: string
-
-  @Field()
-  createdAt: Date
-
-  @Field()
-  updatedAt: Date
 }

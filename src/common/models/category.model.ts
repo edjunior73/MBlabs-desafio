@@ -9,12 +9,6 @@ export class Category {
   @Field()
   name: string
 
-  @Field()
-  description: string
-
-  @Field()
-  createdAt: Date
-
-  @Field()
-  updatedAt: Date
+  @Field({ nullable: true })
+  description?: string
 }

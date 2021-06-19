@@ -1,8 +1,8 @@
-import { FieldId } from '@common/decorators'
 import { Field, ObjectType } from '@nestjs/graphql'
+import { FieldId } from '@common/decorators'
 
 @ObjectType()
-export class Category {
+export class Event {
   @FieldId()
   id: string
 
@@ -12,16 +12,16 @@ export class Category {
   @Field()
   description: string
 
-  @Field()
+  @FieldId()
   categoryId: string
 
   @Field()
   place: string
 
-  @Field()
+  @Field({ defaultValue: false })
   isPaid: boolean
 
-  @Field()
+  @FieldId()
   ownerId: string
 
   @Field()
