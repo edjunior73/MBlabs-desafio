@@ -1,5 +1,10 @@
 import { Request } from 'express'
 
+export enum Role {
+  EVENT_MAKER,
+  USER
+}
+
 export interface JUser {
   iss: string
   email: string
@@ -10,6 +15,7 @@ export interface JUser {
   sub: string
   iat: number
   exp: number
+  role: Role
 }
 
 export interface Context {
