@@ -19,7 +19,7 @@ export class MailService {
   async sendMail(message: IMessage): Promise<void> {
     await this.transporter.sendMail({
       from: message.from || {
-        name: '',
+        name: 'EventsUni',
         address: process.env.EMAIL_FROM as string
       },
       subject: message.subject,
