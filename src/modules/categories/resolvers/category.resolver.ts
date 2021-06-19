@@ -7,7 +7,7 @@ import { CategoryService } from '../services'
 export class CategoryResolver {
   constructor(private readonly categoryService: CategoryService) {}
 
-  @Query(() => [Category])
+  @Query(() => [Category], { name: 'categories' })
   getCategories() {
     return this.categoryService.getCategories()
   }
