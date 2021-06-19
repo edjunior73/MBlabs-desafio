@@ -16,4 +16,13 @@ export class CategoryRepository {
     const categories = await this.prismaService.category.findMany()
     return categories
   }
+
+  async existsById(id: string): Promise<boolean> {
+    const count = await this.prismaService.category.count({
+      where: {
+        id
+      }
+    })
+    return count > 0
+  }
 }
