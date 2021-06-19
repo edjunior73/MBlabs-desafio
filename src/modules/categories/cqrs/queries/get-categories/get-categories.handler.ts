@@ -6,8 +6,8 @@ import { GetCategoriesQuery } from './get-categories.query'
 export class GetCategoriesHandler implements IQueryHandler {
   constructor(private readonly categoryRepository: CategoryRepository) {}
   async execute() {
-    const getUser = this.categoryRepository.getCategories()
+    const getCategories = this.categoryRepository.getCategories()
 
-    return getUser
+    return getCategories
   }
 }
