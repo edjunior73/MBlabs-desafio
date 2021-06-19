@@ -1,1 +1,1 @@
-export * from './services.module'
+export * from './create-category.service'
