@@ -4,6 +4,7 @@ import { CryptService } from '@common/services'
 import { JwtService } from '@nestjs/jwt'
 import { APP_URL } from '@common/constants/server'
 import { UserLogin } from '@common/models/user-login.model'
+import { Role } from '@common/types/context.type'
 import { SignUpUserCommand } from './sign-up-user.command'
 import { CreatedAccountEvent } from '../../events/created-account'
 
@@ -29,10 +30,19 @@ export class SignUpUserHandler implements ICommandHandler<SignUpUserCommand, Use
 
     const createdUser = await this.userRepository.create({
       ...input,
+      isVerified: false,
       password: hashPassword
     })
 
-    const token = this.jwtService.sign({ id: createdUser.id, email: createdUser.email })
+    const token = this.jwtService.sign(
+      {
+        email: createdUser.email,
+        role: Role.USER
+      },
+      {
+        subject: createdUser.id
+      }
+    )
 
     const link = `${APP_URL}/verify-email?token=${token}`
 
