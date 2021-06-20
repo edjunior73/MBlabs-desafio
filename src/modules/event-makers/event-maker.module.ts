@@ -1,11 +1,9 @@
 import { Module } from '@nestjs/common'
 import { CqrsModule } from '@nestjs/cqrs'
-import { CommandHandlers, EventHandlers } from './cqrs'
-
-import { EventMakerRepository } from './repositories/event-maker.repository'
-import { EventMakerResolver } from './resolver/event-maker.resolver'
-import { ServicesModule } from './services'
-import { EventMakerService } from './services/event-maker.service'
+import { CommandHandlers, EventHandlers, QueryHandlers } from './cqrs'
+import { EventMakerRepository } from './repositories'
+import { EventMakerResolver } from './resolvers'
+import { ServicesModule, EventMakerService } from './services'
 
 @Module({
   imports: [ServicesModule, CqrsModule],
@@ -14,7 +12,9 @@ import { EventMakerService } from './services/event-maker.service'
     EventMakerService,
     EventMakerResolver,
     ...CommandHandlers,
+    ...QueryHandlers,
     ...EventHandlers
-  ]
+  ],
+  exports: [EventMakerRepository, EventMakerService]
 })
 export class EventMakerModule {}
