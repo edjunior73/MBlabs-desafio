@@ -1,10 +1,14 @@
-import { GetUserDto, SignUpUserDto } from '@common/dtos'
-import { UserLogin } from '@common/models/user-login.model'
-import { User } from '@common/models/user.model'
 import { Injectable } from '@nestjs/common'
 import { CommandBus, EventBus, QueryBus } from '@nestjs/cqrs'
-import { GetUserQuery } from '../cqrs'
-import { SignUpUserCommand } from '../cqrs/commands/sign-up'
+import { SignUpUserDto, UpdateUserDto, LoginDto } from '@common/dtos'
+import { UserLogin, User } from '@common/models'
+import { GetUserByEmailQuery } from '../cqrs/queries'
+import {
+  SignUpUserCommand,
+  UpdateUserCommand,
+  LoginUserCommand,
+  DeleteUserCommand
+} from '../cqrs/commands'
 
 @Injectable()
 export class UserService {
@@ -18,7 +22,19 @@ export class UserService {
     return this.commandBus.execute(new SignUpUserCommand(input))
   }
 
-  getUser(input: GetUserDto): Promise<User> {
-    return this.queryBus.execute(new GetUserQuery(input))
+  loginUser(input: LoginDto): Promise<UserLogin> {
+    return this.commandBus.execute(new LoginUserCommand(input))
+  }
+
+  updateUser(input: UpdateUserDto, userId: string): Promise<User> {
+    return this.commandBus.execute(new UpdateUserCommand(input, userId))
+  }
+
+  getUserByEmail(email: string) {
+    return this.queryBus.execute(new GetUserByEmailQuery(email))
+  }
+
+  deleteUser(userId: string) {
+    return this.commandBus.execute(new DeleteUserCommand(userId))
   }
 }
