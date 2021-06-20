@@ -1,1 +1,2 @@
-export * from './cqrs.module'
+export * from './commands'
+export * from './queries'
