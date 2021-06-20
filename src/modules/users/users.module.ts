@@ -14,6 +14,7 @@ import { ServicesModule, UserService } from './services'
     ...CommandHandlers,
     ...EventHandlers,
     ...QueryHandlers
-  ]
+  ],
+  exports: [UserService, UserRepository]
 })
 export class UserModule {}
