@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { Prisma, PrismaService, User as PrismaUser } from '@modules/prisma'
-import { User, UserEvent } from '@common/models'
+import { Event, User, UserEvent } from '@common/models'
 import { UpdateUserDto } from '@common/dtos'
 import { getNonNullKeys } from '@common/utils'
 
@@ -64,6 +64,23 @@ export class UserRepository {
       data: { ticketId, userId }
     })
     return userTicket as UserEvent
+  }
+
+  async getUserEvents(userId: string) {
+    const userEvents = await this.prismaService.userEvent.findMany({
+      where: { userId },
+      select: {
+        ticket: {
+          select: {
+            event: true
+          }
+        }
+      }
+    })
+
+    const events = userEvents.map((event, indice) => event.ticket.event)
+    console.log(events)
+    return events
   }
 
   async deleteUser(userId: string): Promise<boolean> {
