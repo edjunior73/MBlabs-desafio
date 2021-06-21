@@ -60,6 +60,7 @@ model Event {
   category    Category   @relation(fields: [categoryId], references: [id])
   categoryId  String     @map("category_id")
   place       String
+  date        DateTime @default(now())
   isPaid      Boolean    @map("is_paid")
   eventMaker  EventMaker @relation(fields: [ownerId], references: [id])
   ownerId     String     @map("owner_id")
