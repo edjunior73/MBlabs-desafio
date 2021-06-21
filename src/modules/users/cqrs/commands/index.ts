@@ -6,6 +6,7 @@ export * from './login-user'
 export * from './update-user'
 export * from './delete-user'
 export * from './buy-ticket'
+export * from './cancel-ticket'
 
 export const CommandHandlers = Object.values(exports).filter(
   handler => isFunction(handler) && /handler/i.test(handler.name)

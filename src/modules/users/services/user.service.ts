@@ -8,7 +8,8 @@ import {
   UpdateUserCommand,
   LoginUserCommand,
   DeleteUserCommand,
-  BuyTicketCommand
+  BuyTicketCommand,
+  CancelTicketCommand
 } from '../cqrs/commands'
 
 @Injectable()
@@ -45,5 +46,9 @@ export class UserService {
 
   getUserEvents(userId: string) {
     return this.queryBus.execute(new GetUserEventsQuery(userId))
+  }
+
+  cancelTicket(ticketId: string, userId: string) {
+    return this.commandBus.execute(new CancelTicketCommand(ticketId, userId))
   }
 }
