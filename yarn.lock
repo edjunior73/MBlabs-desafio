@@ -1474,6 +1474,19 @@ braces@^3.0.1, braces@~3.0.2:
   dependencies:
     fill-range "^7.0.1"
 
+brazilian-class-validator@^0.1.6:
+  version "0.1.6"
+  resolved "https://registry.yarnpkg.com/brazilian-class-validator/-/brazilian-class-validator-0.1.6.tgz#cebeab6ded10d55321f99a3865095ff1f1dc1b33"
+  integrity sha512-5HxqwwVTJqd9v0JbCcZXtjBCJP+n8eNFBHlmcqFVzScYFDQu2haYnR6Mwm7+PTptPgB5kj4WgSZdAE/wqAVmCQ==
+  dependencies:
+    brazilian-values "^0.10.1"
+    class-validator "^0.13.1"
+
+brazilian-values@^0.10.1:
+  version "0.10.1"
+  resolved "https://registry.yarnpkg.com/brazilian-values/-/brazilian-values-0.10.1.tgz#057736f2136342a2eb224af8175b2e7db213eecf"
+  integrity sha512-HruDLDug8oD2lydSEP/L7JJTNcgwTH2uIdXUQKRKjwqHDMbSsJ0Hxi5GOJwxPYBrAx2a6RZXnUbG8krjbw4GGw==
+
 browserslist@^4.14.5:
   version "4.16.6"
   resolved "https://registry.yarnpkg.com/browserslist/-/browserslist-4.16.6.tgz#d7901277a5a88e554ed305b183ec9b0c08f66fa2"

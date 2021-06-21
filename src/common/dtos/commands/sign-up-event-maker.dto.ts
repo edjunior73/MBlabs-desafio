@@ -8,6 +8,7 @@ import {
   MaxLength,
   MinLength
 } from 'class-validator'
+import { IsCNPJ } from 'brazilian-class-validator'
 
 @InputType()
 export class SignUpEventMakerDto {
@@ -37,5 +38,6 @@ export class SignUpEventMakerDto {
   @IsString()
   @MaxLength(14)
   @MinLength(14)
+  @IsCNPJ()
   cnpj: string
 }

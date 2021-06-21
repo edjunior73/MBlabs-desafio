@@ -7,6 +7,7 @@ import {
   MaxLength,
   MinLength
 } from 'class-validator'
+import { IsCPF } from 'brazilian-class-validator'
 
 @InputType()
 export class SignUpUserDto {
@@ -35,5 +36,6 @@ export class SignUpUserDto {
   @IsString()
   @MaxLength(11)
   @MinLength(11)
+  @IsCPF()
   cpf: string
 }
