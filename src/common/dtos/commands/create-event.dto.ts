@@ -1,5 +1,5 @@
 import { Field, InputType } from '@nestjs/graphql'
-import { IsBoolean, IsString } from 'class-validator'
+import { IsBoolean, IsString, IsDate } from 'class-validator'
 import { FieldId } from '@common/decorators'
 
 @InputType()
@@ -18,6 +18,10 @@ export class CreateEventDto {
   @Field()
   @IsString()
   place: string
+
+  @Field()
+  @IsDate()
+  date: Date
 
   @Field({ defaultValue: false })
   @IsBoolean()

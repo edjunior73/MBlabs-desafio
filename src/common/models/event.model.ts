@@ -25,8 +25,5 @@ export class Event {
   ownerId: string
 
   @Field()
-  createdAt: Date
-
-  @Field()
-  updatedAt: Date
+  date: Date
 }
