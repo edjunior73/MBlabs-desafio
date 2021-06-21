@@ -1,5 +1,5 @@
 import { FieldId } from '@common/decorators'
-import { Field, ObjectType } from '@nestjs/graphql'
+import { ObjectType } from '@nestjs/graphql'
 
 @ObjectType()
 export class UserEvent {
@@ -8,10 +8,4 @@ export class UserEvent {
 
   @FieldId()
   ticketId: string
-
-  @Field()
-  createdAt: Date
-
-  @Field()
-  updatedAt: Date
 }
