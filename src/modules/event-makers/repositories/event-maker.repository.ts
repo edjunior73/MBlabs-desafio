@@ -36,6 +36,29 @@ export class EventMakerRepository {
     return count > 0
   }
 
+  async deleteEventMaker(eventMakerId: string): Promise<boolean> {
+    let i = 0
+    const events = await this.prismaService.event.findMany({
+      where: { ownerId: eventMakerId }
+    })
+
+    while (events[i] !== undefined) {
+      const deletedTickets = await this.prismaService.ticket.deleteMany({
+        where: { eventId: events[i].id }
+      })
+      i += 1
+    }
+
+    const deletedEvents = await this.prismaService.event.deleteMany({
+      where: { ownerId: eventMakerId }
+    })
+    const deletedUser = await this.prismaService.eventMaker.delete({
+      where: { id: eventMakerId }
+    })
+
+    return !!deletedUser
+  }
+
   private formatEventMaker(eventMaker: PrismaEventMaker | null): EventMaker | null {
     if (eventMaker !== null) {
       return getNonNullKeys(eventMaker)
