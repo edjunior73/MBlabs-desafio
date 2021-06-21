@@ -2,7 +2,7 @@ import { UseGuards } from '@nestjs/common'
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql'
 import { isEmail } from 'class-validator'
 import { SignUpUserDto, UpdateUserDto, LoginDto } from '@common/dtos'
-import { User, UserEvent, UserLogin } from '@common/models'
+import { User, UserEvent, UserLogin, Event } from '@common/models'
 import { Roles, AuthUser } from '@common/decorators'
 import { AuthGuard } from '@common/guards'
 import { Role, JUser } from '@common/types'
@@ -25,6 +25,13 @@ export class UserResolver {
   @Roles(Role.USER)
   me(@AuthUser() user: JUser) {
     return this.userService.getUserByEmail(user.email)
+  }
+
+  @Query(() => [Event])
+  @UseGuards(AuthGuard)
+  @Roles(Role.USER)
+  getUserEvents(@AuthUser() user: JUser) {
+    return this.userService.getUserEvents(user.id)
   }
 
   @Mutation(() => UserLogin)
