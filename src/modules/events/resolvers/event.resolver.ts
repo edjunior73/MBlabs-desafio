@@ -25,4 +25,10 @@ export class EventResolver {
       ownerId: user.id
     })
   }
+  @Mutation(() => Boolean)
+  @UseGuards(AuthGuard)
+  @Roles(Role.EVENT_MAKER)
+  cancelEvent(@Args('eventId') eventId: string, @AuthUser() user: JUser) {
+    return this.eventService.cancelEvent(eventId, user.id)
+  }
 }
