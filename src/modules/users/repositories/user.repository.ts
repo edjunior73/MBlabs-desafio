@@ -77,13 +77,32 @@ export class UserRepository {
         }
       }
     })
+    if (userEvents) {
+      const events = userEvents.map((event, indice) => event?.ticket?.event)
+      return events
+    }
+  }
 
-    const events = userEvents.map((event, indice) => event.ticket.event)
-    console.log(events)
-    return events
+  async cancelTicket(ticketId: string, userId: string): Promise<boolean> {
+    const canceledTicket = await this.prismaService.userEvent.deleteMany({
+      where: {
+        userId,
+        ticketId
+      }
+    })
+    const updateTicket = await this.prismaService.ticket.update({
+      data: { count: { increment: 1 } },
+      where: {
+        id: ticketId
+      }
+    })
+    return !!canceledTicket
   }
 
   async deleteUser(userId: string): Promise<boolean> {
+    const deletedHistoric = await this.prismaService.userEvent.deleteMany({
+      where: { userId }
+    })
     const deletedUser = await this.prismaService.user.delete({ where: { id: userId } })
     return !!deletedUser
   }
