@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common'
 import { CommandBus, EventBus, QueryBus } from '@nestjs/cqrs'
 import { SignUpUserDto, UpdateUserDto, LoginDto } from '@common/dtos'
 import { UserLogin, User, UserEvent } from '@common/models'
-import { GetUserByEmailQuery } from '../cqrs/queries'
+import { GetUserByEmailQuery, GetUserEventsQuery } from '../cqrs/queries'
 import {
   SignUpUserCommand,
   UpdateUserCommand,
@@ -41,5 +41,9 @@ export class UserService {
 
   buyTicket(ticketId: string, userId: string): Promise<UserEvent> {
     return this.commandBus.execute(new BuyTicketCommand(ticketId, userId))
+  }
+
+  getUserEvents(userId: string) {
+    return this.queryBus.execute(new GetUserEventsQuery(userId))
   }
 }
