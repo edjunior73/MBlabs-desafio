@@ -64,4 +64,10 @@ export class UserResolver {
   updateUser(@Args('userInput') input: UpdateUserDto, @AuthUser() user: JUser) {
     return this.userService.updateUser(input, user.id)
   }
+  @Mutation(() => Boolean)
+  @UseGuards(AuthGuard)
+  @Roles(Role.USER)
+  cancelTicket(@Args('ticketId') ticketId: string, @AuthUser() user: JUser) {
+    return this.userService.cancelTicket(ticketId, user.id)
+  }
 }
