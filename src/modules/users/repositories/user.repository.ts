@@ -48,6 +48,12 @@ export class UserRepository {
   }
 
   async buyTicket(ticketId: string, userId: string): Promise<UserEvent> {
+    const ticket = await this.prismaService.ticket.findUnique({
+      where: { id: ticketId }
+    })
+    if (ticket) {
+      if (ticket.count === 0) throw new Error('Ticket esgotado!')
+    }
     const updateTicket = await this.prismaService.ticket.update({
       data: { count: { decrement: 1 } },
       where: {
