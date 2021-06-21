@@ -47,25 +47,6 @@ export class UserRepository {
     return this.formatUser(updatedUser) as User
   }
 
-  async buyTicket(ticketId: string, userId: string): Promise<UserEvent> {
-    const ticket = await this.prismaService.ticket.findUnique({
-      where: { id: ticketId }
-    })
-    if (ticket) {
-      if (ticket.count === 0) throw new Error('Ticket esgotado!')
-    }
-    const updateTicket = await this.prismaService.ticket.update({
-      data: { count: { decrement: 1 } },
-      where: {
-        id: ticketId
-      }
-    })
-    const userTicket = await this.prismaService.userEvent.create({
-      data: { ticketId, userId }
-    })
-    return userTicket as UserEvent
-  }
-
   async getUserEvents(userId: string) {
     const userEvents = await this.prismaService.userEvent.findMany({
       where: { userId },
@@ -81,22 +62,6 @@ export class UserRepository {
       const events = userEvents.map((event, indice) => event?.ticket?.event)
       return events
     }
-  }
-
-  async cancelTicket(ticketId: string, userId: string): Promise<boolean> {
-    const canceledTicket = await this.prismaService.userEvent.deleteMany({
-      where: {
-        userId,
-        ticketId
-      }
-    })
-    const updateTicket = await this.prismaService.ticket.update({
-      data: { count: { increment: 1 } },
-      where: {
-        id: ticketId
-      }
-    })
-    return !!canceledTicket
   }
 
   async deleteUser(userId: string): Promise<boolean> {

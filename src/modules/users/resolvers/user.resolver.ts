@@ -51,23 +51,10 @@ export class UserResolver {
     return this.userService.loginUser(input)
   }
 
-  @Mutation(() => UserEvent)
-  @UseGuards(AuthGuard)
-  @Roles(Role.USER)
-  buyTicket(@Args('ticketId') ticketId: string, @AuthUser() user: JUser) {
-    return this.userService.buyTicket(ticketId, user.id)
-  }
-
   @Mutation(() => User)
   @UseGuards(AuthGuard)
   @Roles(Role.USER)
   updateUser(@Args('userInput') input: UpdateUserDto, @AuthUser() user: JUser) {
     return this.userService.updateUser(input, user.id)
-  }
-  @Mutation(() => Boolean)
-  @UseGuards(AuthGuard)
-  @Roles(Role.USER)
-  cancelTicket(@Args('ticketId') ticketId: string, @AuthUser() user: JUser) {
-    return this.userService.cancelTicket(ticketId, user.id)
   }
 }

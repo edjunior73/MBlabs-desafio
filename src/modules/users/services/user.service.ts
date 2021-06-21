@@ -7,9 +7,7 @@ import {
   SignUpUserCommand,
   UpdateUserCommand,
   LoginUserCommand,
-  DeleteUserCommand,
-  BuyTicketCommand,
-  CancelTicketCommand
+  DeleteUserCommand
 } from '../cqrs/commands'
 
 @Injectable()
@@ -40,15 +38,7 @@ export class UserService {
     return this.commandBus.execute(new DeleteUserCommand(userId))
   }
 
-  buyTicket(ticketId: string, userId: string): Promise<UserEvent> {
-    return this.commandBus.execute(new BuyTicketCommand(ticketId, userId))
-  }
-
   getUserEvents(userId: string) {
     return this.queryBus.execute(new GetUserEventsQuery(userId))
-  }
-
-  cancelTicket(ticketId: string, userId: string) {
-    return this.commandBus.execute(new CancelTicketCommand(ticketId, userId))
   }
 }
