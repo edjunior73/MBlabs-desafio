@@ -7,7 +7,7 @@ import { BuyTicketCommand } from './buy-ticket.command'
 export class BuyTicketHandler implements ICommandHandler<BuyTicketCommand> {
   constructor(private readonly userRepository: UserRepository) {}
   async execute({ ticketId, userId }: BuyTicketCommand): Promise<UserEvent> {
-    const category = await this.userRepository.buyTicket(ticketId, userId)
-    return category
+    const ticket = await this.userRepository.buyTicket(ticketId, userId)
+    return ticket
   }
 }
