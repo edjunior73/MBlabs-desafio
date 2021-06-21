@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { Prisma, PrismaService, User as PrismaUser } from '@modules/prisma'
-import { User } from '@common/models'
+import { User, UserEvent } from '@common/models'
 import { UpdateUserDto } from '@common/dtos'
 import { getNonNullKeys } from '@common/utils'
 
@@ -45,6 +45,19 @@ export class UserRepository {
       }
     })
     return this.formatUser(updatedUser) as User
+  }
+
+  async buyTicket(ticketId: string, userId: string): Promise<UserEvent> {
+    const updateTicket = await this.prismaService.ticket.update({
+      data: { count: { decrement: 1 } },
+      where: {
+        id: ticketId
+      }
+    })
+    const userTicket = await this.prismaService.userEvent.create({
+      data: { ticketId, userId }
+    })
+    return userTicket as UserEvent
   }
 
   async deleteUser(userId: string): Promise<boolean> {
