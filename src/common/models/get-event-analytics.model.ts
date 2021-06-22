@@ -1,17 +1,16 @@
-import { Field, ObjectType } from '@nestjs/graphql'
-import { FieldId } from '@common/decorators'
+import { Field, Float, Int, ObjectType } from '@nestjs/graphql'
 
 @ObjectType()
 export class GetEventAnalytics {
-  @Field()
+  @Field(() => Int)
   availableTickets: number
 
-  @Field()
+  @Field(() => Int)
   unavailableTickets: number
 
-  @FieldId()
+  @Field(() => Int)
   totalTickets: number
 
-  @Field()
+  @Field(() => Float)
   earnedAmount: number
 }
