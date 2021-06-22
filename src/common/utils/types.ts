@@ -3,6 +3,13 @@ export const isFunction = (value: any): value is Function => {
   return typeof value === 'function'
 }
 
+export type PickByValue<T, ValueType> = Pick<
+  T,
+  { [Key in keyof T]-?: T[Key] extends ValueType ? Key : never }[keyof T]
+>
+
+export type PrimitiveKeys<T> = keyof PickByValue<T, string>
+
 export type RequireAtLeastOne<T, Keys extends keyof T = keyof T> = Omit<T, Keys> &
   {
     [K in Keys]-?: Required<Pick<T, K>> & Partial<Omit<T, Keys>>
