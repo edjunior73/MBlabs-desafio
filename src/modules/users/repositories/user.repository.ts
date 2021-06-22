@@ -59,7 +59,7 @@ export class UserRepository {
       }
     })
     if (userEvents) {
-      const events = userEvents.map((event, indice) => event?.ticket?.event)
+      const events = userEvents.map(event => event?.ticket?.event)
       return events
     }
   }
