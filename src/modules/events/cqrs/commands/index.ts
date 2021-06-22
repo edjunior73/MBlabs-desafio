@@ -2,6 +2,7 @@ import { isFunction } from '@common/utils'
 import { Provider } from '@nestjs/common'
 
 export * from './create-event'
+export * from './update-event'
 export * from './create-ticket'
 export * from './cancel-event'
 export * from './buy-ticket'
