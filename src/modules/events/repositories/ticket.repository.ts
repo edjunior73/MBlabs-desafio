@@ -12,6 +12,27 @@ export class TicketRepository {
     return this.formatTicket(ticket) as Ticket
   }
 
+  async findTickets(eventId: string) {
+    const tickets = this.prismaService.ticket.findMany({
+      where: { eventId },
+      select: { count: true, id: true }
+    })
+    return tickets
+  }
+
+  async getBoughtTickets(ticketsId: string[]): Promise<{ ticketId: string }[]> {
+    const tickets = await this.prismaService.userEvent.findMany({
+      where: {
+        ticketId: {
+          in: ticketsId
+        }
+      },
+      select: {
+        ticketId: true
+      }
+    })
+    return tickets
+  }
   async findByEventAndName(eventId: string, name: string): Promise<Ticket | null> {
     const ticket = await this.prismaService.ticket.findFirst({ where: { eventId, name } })
     return this.formatTicket(ticket)
