@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { Prisma, PrismaService, User as PrismaUser } from '@modules/prisma'
-import { Event, User, UserEvent } from '@common/models'
-import { UpdateUserDto } from '@common/dtos'
+import { User } from '@common/models'
 import { getNonNullKeys } from '@common/utils'
 
 @Injectable()
