@@ -15,7 +15,7 @@ export class TicketRepository {
   async findTickets(eventId: string) {
     const tickets = this.prismaService.ticket.findMany({
       where: { eventId },
-      select: { count: true, id: true }
+      select: { count: true, id: true, price: true }
     })
     return tickets
   }
