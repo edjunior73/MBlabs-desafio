@@ -1,7 +1,7 @@
 import { UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
-import { CreateEventDto } from '@common/dtos'
-import { Event } from '@common/models'
+import { CreateEventDto, SearchEventsArgs, UpdateEventDto } from '@common/dtos'
+import { Event, GetEventAnalytics, PaginatedEvents } from '@common/models'
 import { Roles, AuthUser } from '@common/decorators'
 import { AuthGuard } from '@common/guards'
 import { Role, JUser } from '@common/types'
@@ -16,6 +16,18 @@ export class EventResolver {
     return this.eventService.getEvents()
   }
 
+  @Query(() => GetEventAnalytics)
+  @UseGuards(AuthGuard)
+  @Roles(Role.EVENT_MAKER)
+  getEventAnalytics(@Args('eventId') eventId: string, @AuthUser() user: JUser) {
+    return this.eventService.getEventAnalytics(eventId, user.id)
+  }
+
+  @Query(() => PaginatedEvents)
+  getPaginatedEvents(@Args({ type: () => SearchEventsArgs }) args: SearchEventsArgs) {
+    return this.eventService.getPaginatedEvents(args)
+  }
+
   @Mutation(() => Event)
   @UseGuards(AuthGuard)
   @Roles(Role.EVENT_MAKER)
@@ -25,6 +37,17 @@ export class EventResolver {
       ownerId: user.id
     })
   }
+
+  @Mutation(() => Event)
+  @UseGuards(AuthGuard)
+  @Roles(Role.EVENT_MAKER)
+  updateEvent(
+    @Args('updateEventInput') input: UpdateEventDto,
+    @Args('eventId') eventId: string
+  ) {
+    return this.eventService.updateEvent(input, eventId)
+  }
+
   @Mutation(() => Boolean)
   @UseGuards(AuthGuard)
   @Roles(Role.EVENT_MAKER)
