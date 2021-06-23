@@ -2,7 +2,9 @@ version: '3'
 
 services:
   app:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
     entrypoint: ./.docker/entrypoint.sh
     container_name: events-app
     environment:

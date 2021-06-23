@@ -9,6 +9,8 @@ RUN yarn
 
 COPY . ./
 
+RUN yarn prisma:generate
+
 RUN yarn build
 
 EXPOSE 5005
