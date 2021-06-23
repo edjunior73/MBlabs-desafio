@@ -15,7 +15,7 @@ services:
       - .:/home/node/app
     networks:
       - 'app-network'
-    depends:on:
+    depends_on:
       - db
 
   db:
