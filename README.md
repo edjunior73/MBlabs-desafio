@@ -7,8 +7,8 @@ API rodando em: [https://mb-labs-challenge.herokuapp.com/graphql](https://mb-lab
 
 - [TypeScript](https://github.com/microsoft/TypeScript) - Linguagem no qual o projeto foi desenvolvido
 - [NestJS](https://github.com/nestjs/nest) - Framework back-end utilizado
-- [GraphQl](https://github.com/graphql) - Arquitetura API utilizada
-- [Prisma](https://github.com/prisma) - ORM 
+- [GraphQL](https://github.com/graphql) - Arquitetura API utilizada
+- [Prisma](https://www.prisma.io/) - ORM 
 - [NodeJS](https://github.com/nodejs/node) - JavaScript Runtime
 - [Postgre SQL](https://github.com/postgresql) - Banco de dados utilizado
 - [Docker](https://github.com/docker) - tecnologia de conteinerização 
@@ -22,8 +22,8 @@ API rodando em: [https://mb-labs-challenge.herokuapp.com/graphql](https://mb-lab
 
 ```sh
 yarn
+docker-compose up -d
 yarn prisma:migrate
-yarn dev
 ```
 
 Iniciará o servidor por padrão no [http://localhost:5005](http://localhost:5005)
